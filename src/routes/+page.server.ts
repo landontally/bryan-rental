@@ -1,10 +1,6 @@
-import { client } from '$lib/sanity';
-import type { PageServerLoad } from './$types';
-
 export const load: PageServerLoad = async () => {
-    // FIX: Changed "available == true" to "featured == true"
-    // Also added "availableYear" and "dateAvailable" so we can show status on the homepage too
-    const query = `*[_type == "property" && featured == true] | order(_createdAt desc)[0...3] {
+    // Keep 'mainImage' here (Do NOT use "imageUrl": mainImage.asset->url)
+    const query = `*[_type == "property" && featured == true] | order(_createdAt desc)[0...6] {
         _id,
         title,
         slug,
@@ -13,7 +9,7 @@ export const load: PageServerLoad = async () => {
         bathrooms,
         dateAvailable,
         availableYear, 
-        mainImage
+        mainImage 
     }`;
 
     const properties = await client.fetch(query);

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import PropertyCard from '$lib/components/PropertyCard.svelte';
 	let { data } = $props();
+	
 </script>
 
 <div class="relative h-screen w-full bg-brand-black overflow-hidden">
