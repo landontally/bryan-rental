@@ -1,5 +1,9 @@
+// src/routes/+page.server.ts
+import { client } from '$lib/sanity'; // <--- This was missing!
+import type { PageServerLoad } from './$types'; // <--- This was missing!
+
 export const load: PageServerLoad = async () => {
-    // Keep 'mainImage' here (Do NOT use "imageUrl": mainImage.asset->url)
+    // Fetch properties that are 'featured'
     const query = `*[_type == "property" && featured == true] | order(_createdAt desc)[0...6] {
         _id,
         title,

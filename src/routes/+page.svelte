@@ -20,6 +20,7 @@
 		</p>
 		<a href="/listings" class="px-8 py-3 bg-white text-brand-navy font-bold rounded hover:bg-brand-navy hover:text-white transition-colors shadow-xl tracking-wide uppercase text-sm">
 			Explore Listings
+		</a>
 	</div>
 </div>
 
