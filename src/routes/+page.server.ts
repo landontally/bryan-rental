@@ -1,6 +1,5 @@
-// src/routes/+page.server.ts
-import { client } from '$lib/sanity'; // <--- This was missing!
-import type { PageServerLoad } from './$types'; // <--- This was missing!
+import { client } from '$lib/sanity';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
     // Fetch properties that are 'featured'

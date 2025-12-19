@@ -3,19 +3,20 @@
 	import Lightbox from '$lib/components/Lightbox.svelte';
 	import Map from '$lib/components/Map.svelte';
 	import { PortableText } from '@portabletext/svelte';
+	// Import Global State
+	import { uiState } from '$lib/state.svelte';
 
 	let { data } = $props();
 
-	// Use Derived variables for reactivity
 	let property = $derived(data.property);
 	let prev = $derived(data.prev);
 	let next = $derived(data.next);
 
-	// Safely create the image list
 	let allImages = $derived([property?.mainImage, ...(property?.gallery || [])].filter(Boolean));
 
 	let showLightbox = $state(false);
 	let lightboxIndex = $state(0);
+	
 	let isSaved = $state(false);
 	let y = $state(0);
 	let showSticky = $derived(y > 600);
@@ -50,12 +51,6 @@
 		}
 	};
 
-	let contactLink = $derived(
-		property 
-		? `mailto:ljkamen@gmail.com?subject=Inquiry about ${property.title}`
-		: '#'
-	);
-
 	const formatMoney = (amount: number) => {
 		if (!amount) return 'Contact for Price';
 		return new Intl.NumberFormat('en-US', {
@@ -86,7 +81,7 @@
 {/if}
 
 <div 
-	class="fixed top-0 left-0 w-full bg-brand-navy text-white shadow-2xl z-50 transition-transform duration-300 ease-in-out border-b border-white/10"
+	class="fixed top-0 left-0 w-full bg-brand-navy text-white shadow-2xl z-[60] transition-transform duration-300 ease-in-out border-b border-white/10"
 	class:translate-y-0={showSticky}
 	class:-translate-y-full={!showSticky}
 >
@@ -101,7 +96,7 @@
 				</a>
 			</div>
 			{#if prev}
-				<a href={`/property/${prev.slug}`} class="hidden md:flex items-center gap-1 text-xs font-bold tracking-widest text-slate-400 hover:text-white transition-colors border-r border-white/10 pr-6 h-10">
+				<a href={`/listings/${prev.slug}`} class="hidden md:flex items-center gap-1 text-xs font-bold tracking-widest text-slate-400 hover:text-white transition-colors border-r border-white/10 pr-6 h-10">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
 					PREV
 				</a>
@@ -118,27 +113,29 @@
 					class="flex flex-col items-center transition-colors group" 
 					class:text-brand-sky={isSaved} 
 					class:text-slate-400={!isSaved}
-					on:click={handleBookmark}
+					onclick={handleBookmark}
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" fill={isSaved ? "currentColor" : "none"} viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 group-hover:text-brand-sky"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>
 					<span class="text-[10px] uppercase font-bold tracking-wider mt-1">{isSaved ? 'Saved' : 'Save'}</span>
 				</button>
 				<button 
 					class="flex flex-col items-center hover:text-white transition-colors"
-					on:click={handleShare}
+					onclick={handleShare}
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg>
 					<span class="text-[10px] uppercase font-bold tracking-wider mt-1">Share</span>
 				</button>
 			</div>
-			<a 
-				href={contactLink}
+			
+			<button 
+				onclick={() => uiState.isContactOpen = true}
 				class="bg-brand-sky text-brand-navy hover:bg-white transition-colors font-bold px-6 py-2 rounded text-sm uppercase tracking-wide shadow-lg"
 			>
-				Request Info
-			</a>
+				Email Lisa
+			</button>
+			
 			{#if next}
-				<a href={`/property/${next.slug}`} class="hidden md:flex items-center gap-1 text-xs font-bold tracking-widest text-slate-400 hover:text-white transition-colors border-l border-white/10 pl-6 h-10 ml-2">
+				<a href={`/listings/${next.slug}`} class="hidden md:flex items-center gap-1 text-xs font-bold tracking-widest text-slate-400 hover:text-white transition-colors border-l border-white/10 pl-6 h-10 ml-2">
 					NEXT
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
 				</a>
@@ -154,13 +151,13 @@
 				
 				<button
 					class="md:col-span-2 h-full relative group w-full text-left bg-black/20"
-					on:click={() => openLightbox(0)}
+					onclick={() => openLightbox(0)}
 				>
 					{#if property.mainImage}
 						<img
 							src={urlFor(property.mainImage).width(1200).url()}
 							alt={property.title}
-							class="w-full h-full object-contain transition-transform duration-[2000ms] ease-out group-hover:scale-[1.02]"
+							class="w-full h-full object-contain transition-transform duration-2000 ease-out group-hover:scale-[1.02]"
 						/>
 					{/if}
 					<div class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-brand-navy shadow-sm">
@@ -172,14 +169,14 @@
 				</button>
 
 				<div class="hidden md:flex flex-col gap-2 h-full">
-					<button class="h-1/2 bg-gray-100 relative w-full overflow-hidden group" on:click={() => openLightbox(1)}>
+					<button class="h-1/2 bg-gray-100 relative w-full overflow-hidden group" onclick={() => openLightbox(1)}>
 						{#if property.gallery && property.gallery[0]}
 							<img src={urlFor(property.gallery[0].asset).width(600).height(400).url()} alt="Gallery 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
 						{:else}
 							<div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">No extra photo</div>
 						{/if}
 					</button>
-					<button class="h-1/2 bg-gray-100 relative w-full overflow-hidden group" on:click={() => openLightbox(2)}>
+					<button class="h-1/2 bg-gray-100 relative w-full overflow-hidden group" onclick={() => openLightbox(2)}>
 						{#if property.gallery && property.gallery[1]}
 							<img src={urlFor(property.gallery[1].asset).width(600).height(400).url()} alt="Gallery 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
 							<div class="absolute inset-0 bg-brand-black/20 group-hover:bg-brand-black/40 transition-colors flex items-center justify-center">
@@ -292,12 +289,12 @@
 					<p class="text-slate-500 text-sm font-medium mb-1">Monthly Rent</p>
 					<p class="text-4xl font-bold text-brand-navy">{formatMoney(property.price)}</p>
 				</div>
-				<a 
-					href={contactLink}
+				<button 
+					onclick={() => uiState.isContactOpen = true}
 					class="w-full block bg-brand-navy text-white font-bold py-4 rounded-lg hover:bg-brand-black transition-colors mb-4 shadow-lg text-center"
 				>
-					Request Info
-				</a>
+					Email Lisa
+				</button>
 				<div class="mt-6 pt-6 border-t border-gray-100 text-center">
 					<p class="text-sm text-slate-500 mb-2">Have questions? Call us:</p>
 					<a href="tel:812-345-1005" class="text-xl font-bold text-brand-navy hover:text-brand-sky transition-colors">

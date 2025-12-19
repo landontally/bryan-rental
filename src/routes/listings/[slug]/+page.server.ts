@@ -19,22 +19,24 @@ export const load: PageServerLoad = async ({ params }) => {
 	}
 
 	// 2. DETERMINE STATUS (Available vs Leased)
-	// If the current property is Leased (false), we only want to cycle through other Leased properties.
-	// If it's Available (true), we only cycle through Available ones.
-	const isAvailable = property.available !== false; // Treat null/undefined as true just in case
+	// We check if 'availableYear' is populated. 
+	// If it has text (e.g. "2025-2026"), it's available. If null, it's leased.
+	const isAvailable = !!property.availableYear; 
 
 	// 3. FETCH NEIGHBORS (Context Aware)
-	// We inject the $isAvailable variable into the query
+	// We use `defined(availableYear)` to filter for Available properties
+	// We use `!defined(availableYear)` to filter for Leased properties
+	const condition = isAvailable ? 'defined(availableYear)' : '!defined(availableYear)';
+
 	const neighborsQuery = `{
-		"directPrev": *[_type == "property" && available == $isAvailable && _createdAt < $createdAt] | order(_createdAt desc)[0] { "slug": slug.current },
-		"directNext": *[_type == "property" && available == $isAvailable && _createdAt > $createdAt] | order(_createdAt asc)[0] { "slug": slug.current },
-		"first": *[_type == "property" && available == $isAvailable] | order(_createdAt asc)[0] { "slug": slug.current },
-		"last": *[_type == "property" && available == $isAvailable] | order(_createdAt desc)[0] { "slug": slug.current }
+		"directPrev": *[_type == "property" && ${condition} && _createdAt < $createdAt] | order(_createdAt desc)[0] { "slug": slug.current },
+		"directNext": *[_type == "property" && ${condition} && _createdAt > $createdAt] | order(_createdAt asc)[0] { "slug": slug.current },
+		"first": *[_type == "property" && ${condition}] | order(_createdAt asc)[0] { "slug": slug.current },
+		"last": *[_type == "property" && ${condition}] | order(_createdAt desc)[0] { "slug": slug.current }
 	}`;
 
 	const neighbors = await client.fetch(neighborsQuery, { 
-		createdAt: property._createdAt,
-		isAvailable: isAvailable
+		createdAt: property._createdAt
 	});
 
 	// 4. LOOPING LOGIC

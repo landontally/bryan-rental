@@ -1,7 +1,9 @@
 import property from './property'
-import resource from './resource' // <--- Import the new file
+import resource from './resource'
+import notice from './notice' // <--- Import
 
 export const schemaTypes = [
   property,
-  resource, // <--- Add it to the array
+  resource,
+  notice, // <--- Add
 ]
