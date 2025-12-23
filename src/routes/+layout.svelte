@@ -19,7 +19,6 @@
 
 	let isHomePage = $derived($page.url.pathname === '/');
 	let isListingsPage = $derived($page.url.pathname.startsWith('/listings'));
-	// Hide notice on listings pages to prevent sticky header conflict
 	let hasNotice = $derived(!!data.notice && !isListingsPage);
 	let isTransparent = $derived(isHomePage && y < 50); 
 </script>
@@ -61,12 +60,16 @@
 
 						<div class="relative group h-full flex items-center">
 							<a href="/tenants" class="py-2 hover:opacity-80 transition-opacity">TENANTS</a>
-							<div class="absolute left-1/2 -translate-x-1/2 top-full pt-6 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
-								<div class="bg-brand-black border border-white/10 rounded-md shadow-2xl p-4 flex flex-col space-y-3">
-									<a href="/tenants#welcome-home" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Welcome Home</a>
-									<a href="/tenants#trash-schedule" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Trash Schedule</a>
+							<div class="absolute left-1/2 -translate-x-1/2 top-full pt-6 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
+								<div class="bg-brand-black border border-white/10 rounded-md shadow-2xl p-4 flex flex-col space-y-3 text-sm">
+									<a href="/tenants#move-in-information" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Move-In Information</a>
+									<a href="/tenants#utility-setup-contacts" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Utility Setup & Contacts</a>
+									<a href="/tenants#rent-payment-options" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Rent & Payment Options</a>
+									<a href="/tenants#trash-recycling" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Trash & Recycling</a>
+									<a href="/tenants#maintenance-requests" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Maintenance Requests</a>
 									<a href="/tenants#move-out-checklist" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Move-Out Checklist</a>
-									<a href="/tenants" class="block text-white font-bold border-t border-white/10 pt-3 mt-1 hover:text-brand-sky transition-colors">View All &rarr;</a>
+									
+									<a href="/tenants" class="block text-white font-bold border-t border-white/10 pt-3 mt-1 hover:text-brand-sky transition-colors">View Handbook &rarr;</a>
 								</div>
 							</div>
 						</div>
@@ -108,7 +111,7 @@
 		{@render children()}
 	</main>
 
-    <footer class="bg-brand-navy border-t border-white/5 pt-20 pb-12 text-white relative overflow-hidden">
+	<footer class="bg-brand-navy border-t border-white/5 pt-20 pb-12 text-white relative overflow-hidden">
         
         <div class="absolute top-0 right-0 w-96 h-96 bg-brand-sky/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
@@ -116,7 +119,7 @@
             
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-20">
 				
-                <div class="lg:col-span-4">
+				<div class="lg:col-span-4">
 					<a href="/" class="block mb-6 hover:opacity-80 transition-opacity">
 						<h3 class="text-2xl tracking-tight">
 							<span class="font-light tracking-widest uppercase text-sm block mb-1 opacity-70">Bryan</span>
@@ -124,17 +127,17 @@
 						</h3>
 					</a>
 					<p class="text-slate-400 text-sm leading-relaxed max-w-sm font-light">
-						Elevating the residential leasing experience in Bloomington, Indiana. Providing quality homes and personal service for over 20 years.
+						Elevating the residential leasing experience in Bloomington, Indiana.
 					</p>
 				</div>
 
                 <div class="lg:col-span-3 lg:pl-10">
                     <h4 class="text-sm font-bold uppercase tracking-widest text-white/40 mb-6">Explore</h4>
                     <ul class="space-y-4 text-sm font-medium tracking-wide">
-                        <li><a href="/" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-[1px] bg-brand-sky transition-all duration-300"></span>Home</a></li>
-                        <li><a href="/listings" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-[1px] bg-brand-sky transition-all duration-300"></span>All Listings</a></li>
-                        <li><a href="/tenants" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-[1px] bg-brand-sky transition-all duration-300"></span>Tenant Handbook</a></li>
-                        <li><a href="/about" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-[1px] bg-brand-sky transition-all duration-300"></span>About Us</a></li>
+                        <li><a href="/" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-px bg-brand-sky transition-all duration-300"></span>Home</a></li>
+                        <li><a href="/listings" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-px bg-brand-sky transition-all duration-300"></span>All Listings</a></li>
+                        <li><a href="/tenants" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-px bg-brand-sky transition-all duration-300"></span>Tenant Handbook</a></li>
+                        <li><a href="/about" class="text-slate-300 hover:text-brand-sky transition-colors flex items-center gap-2 group"><span class="w-0 group-hover:w-2 h-px bg-brand-sky transition-all duration-300"></span>About Us</a></li>
                     </ul>
                 </div>
 
@@ -181,7 +184,7 @@
 
 			</div>
 			
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-wider text-slate-500">
+			<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-wider text-slate-500">
 				<p>&copy; 2025 Bryan Rental. All rights reserved.</p>
 				<div class="flex gap-6">
                     <a href="/tenants" class="hover:text-white transition-colors">Tenants</a>
