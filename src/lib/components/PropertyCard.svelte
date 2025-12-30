@@ -11,12 +11,10 @@
         }).format(amount);
     };
 
-    // FIX: Updated logic to force UTC timezone
     const formatDate = (dateString: string) => {
         if (!dateString) return 'Now';
         const date = new Date(dateString);
         
-        // "timeZone: 'UTC'" prevents the "Day Behind" bug
         return new Intl.DateTimeFormat('en-US', {
             month: 'short',
             day: 'numeric',
@@ -28,15 +26,15 @@
 
 <a
     href={`/listings/${property.slug.current}`} 
-    class="group relative block h-96 w-full overflow-hidden shadow-lg bg-gray-100"
+    class="group relative block h-96 w-full overflow-hidden shadow-lg bg-white transform-gpu"
 >
-    {#if property.mainImage}
+{#if property.mainImage}
         <img
             src={urlFor(property.mainImage).width(600).height(800).url()}
             alt={property.title}
-            class="h-[calc(100%+4rem)] w-full object-cover transition-transform duration-500 ease-in-out group-hover:-translate-y-16"
+            class="block h-[calc(100%+4rem)] w-[calc(100%+2px)] -ml-[1px] max-w-none object-cover transition-transform duration-500 ease-in-out group-hover:-translate-y-16"
         />
-    {/if}
+        {/if}
 
     <div
         class="absolute bottom-0 w-full bg-white/95 backdrop-blur-sm pt-3 transition-transform duration-500 ease-in-out translate-y-16 group-hover:translate-y-0 will-change-transform"
