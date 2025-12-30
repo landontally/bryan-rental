@@ -68,7 +68,7 @@
 					<div class="p-8">
 						<h3 class="text-xl font-bold text-brand-navy mb-3">Quality Standard</h3>
 						<p class="text-slate-500 font-light">
-							We maintain our properties to a standard we would expect for our own families—clean, safe, and modern.
+							We maintain our properties to a standard we would expect for our own families: clean, safe, and modern.
 						</p>
 					</div>
 				</div>
