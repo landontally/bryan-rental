@@ -27,7 +27,7 @@
 					Our portfolio focuses exclusively on residential spaces that offer character, quiet, and quality. We aren't a massive corporation with call centers in another state. When you lease with us, you are working directly with people who know the names of the streets, the history of the neighborhoods, and the best local coffee spots.
 				</p>
 				<p>
-					We believe a home is more than just a roof over your head—it's the backdrop to your life. Whether you are a student focusing on your studies or someone wanting to support the IU sports teams, we are here to provide the foundation for your next chapter.
+					We believe a home is more than just a roof over your head: it's the backdrop to your life. Whether you are a student focusing on your studies or someone wanting to support the IU sports teams, we are here to provide the foundation for your next chapter.
 				</p>
 			</div>
 		</div>
