@@ -75,6 +75,10 @@
 						</div>
 
 						<a href="/about" class="group relative py-2">ABOUT<span class="absolute bottom-0 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span></a>
+
+						<a href="/apply" class="px-6 py-2 bg-brand-sky text-brand-navy font-bold text-xs tracking-widest rounded hover:bg-white hover:text-brand-black transition-all duration-300">
+							APPLY NOW
+						</a>
 						
 						<button 
 							onclick={() => uiState.isContactOpen = true}
