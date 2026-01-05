@@ -24,23 +24,28 @@
 {/if}
 
 <div class="relative h-screen w-full bg-brand-black overflow-hidden">
-	<img 
-		src="hero-house.jpg" 
-		alt="Luxury Home" 
-		class="absolute inset-0 w-full h-full object-cover opacity-60"
-	/>
-	
-	<div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-		<h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 drop-shadow-lg">
-			Find Your Place.
-		</h1>
-		<p class="text-lg md:text-xl text-slate-200 max-w-2xl font-light mb-10 tracking-wide">
-			Discover residential rentals in the heart of Bloomington, Indiana.
-		</p>
-		<a href="/listings" class="px-8 py-3 bg-white text-brand-navy font-bold rounded hover:bg-brand-navy hover:text-white transition-colors shadow-xl tracking-wide uppercase text-sm">
-			Explore Listings
-		</a>
-	</div>
+    
+    <img 
+        src="iu-stadium.jpg" 
+        alt="Luxury Home" 
+        class="absolute inset-0 w-full h-full object-cover opacity-50"
+    />
+
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
+    
+    <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 drop-shadow-2xl">
+            Find Your Place.
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-100 max-w-2xl font-light mb-10 tracking-wide drop-shadow-md">
+            Discover residential rentals in the heart of Bloomington, Indiana.
+        </p>
+        
+        <a href="/listings" class="px-8 py-3 bg-white text-brand-navy font-bold rounded hover:bg-brand-navy hover:text-white transition-colors shadow-xl tracking-wide uppercase text-sm">
+            Explore Listings
+        </a>
+    </div>
 </div>
 
 <div class="bg-brand-navy py-12 border-b border-white/5 relative z-10 -mt-2">
