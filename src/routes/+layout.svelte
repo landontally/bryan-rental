@@ -63,10 +63,10 @@
 							<div class="absolute left-1/2 -translate-x-1/2 top-full pt-6 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
 								<div class="bg-brand-black border border-white/10 rounded-md shadow-2xl p-4 flex flex-col space-y-3 text-sm">
 									<a href="/tenants#move-in-information" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Move-In Information</a>
-									<a href="/tenants#utility-setup-contacts" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Utility Setup & Contacts</a>
-									<a href="/tenants#rent-payment-options" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Rent & Payment Options</a>
-									<a href="/tenants#trash-recycling" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Trash & Recycling</a>
-									<a href="/tenants#maintenance-requests" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Maintenance Requests</a>
+									<a href="/tenants#utility-setup-and-contacts" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Utility Setup & Contacts</a>
+									<a href="/tenants#rent-and-payment-options" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Rent & Payment Options</a>
+									<a href="/tenants#appliance-guides" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Applicance Guides</a>
+									<a href="/tenants#maintenance-and-emergencies" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Maintenance Requests</a>
 									<a href="/tenants#move-out-checklist" class="block text-white/70 hover:text-brand-sky hover:translate-x-1 transition-all">Move-Out Checklist</a>
 									
 									<a href="/tenants" class="block text-white font-bold border-t border-white/10 pt-3 mt-1 hover:text-brand-sky transition-colors">View Handbook &rarr;</a>
@@ -100,6 +100,8 @@
 					<a href="/listings" class="text-lg font-light tracking-widest" onclick={() => isMenuOpen = false}>LISTINGS</a>
 					<a href="/tenants" class="text-lg font-light tracking-widest" onclick={() => isMenuOpen = false}>TENANTS</a>
 					<a href="/about" class="text-lg font-light tracking-widest" onclick={() => isMenuOpen = false}>ABOUT</a>
+					<a href="/apply" class="text-lg font-light tracking-widest" onclick={() => isMenuOpen = false}>APPLY</a>
+
 					<button 
 						class="text-left font-bold text-brand-sky text-lg tracking-widest"
 						onclick={() => { isMenuOpen = false; uiState.isContactOpen = true; }}
