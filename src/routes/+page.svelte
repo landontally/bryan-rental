@@ -1,6 +1,6 @@
 <script lang="ts">
-	import PropertyCard from '$lib/components/PropertyCard.svelte';
-	let { data } = $props();
+    import PropertyCard from '$lib/components/PropertyCard.svelte';
+    let { data } = $props();
 
     // Helper to get color classes based on alert type
     const getAlertColor = (type: string) => {
@@ -28,7 +28,7 @@
     <img 
         src="iu-stadium.jpg" 
         alt="Luxury Home" 
-        class="absolute inset-0 w-full h-full object-cover opacity-50"
+        class="absolute inset-0 w-full h-full object-cover opacity-40"
     />
 
     <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"></div>
@@ -52,14 +52,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             
-            <a href="/tenants#maintenance" class="group flex items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
+            <a href="mailto:maintenance@bryanrental.com,ljkamen@gmail.com?subject=Maintenance%20Request" class="group flex items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
                 <div class="w-12 h-12 bg-brand-sky rounded-full flex items-center justify-center text-brand-navy shrink-0 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" /></svg>
                 </div>
                 <div>
                     <h3 class="text-white font-bold text-lg">Maintenance</h3>
-                    <p class="text-slate-400 text-sm">Submit a request</p>
-                </div>
+                    <p class="text-slate-400 text-sm">Email a request</p> 
+                    </div>
             </a>
 
             <a href="https://example.com/portal" target="_blank" class="group flex items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
@@ -100,32 +100,31 @@
 </div>
 
 <div class="min-h-screen bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
-	<div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto">
         <div class="flex justify-between items-end mb-12">
-			<div>
-				<h2 class="text-3xl font-bold text-brand-navy tracking-tight">Featured Properties</h2>
-				<p class="text-slate-500 mt-2 font-light">Curated selection of our finest homes.</p>
-			</div>
-			<a href="/listings" class="hidden md:block text-sm font-bold text-brand-navy hover:text-brand-sky transition-colors tracking-wide uppercase border-b border-slate-300 pb-1">
-				View All
-			</a>
-		</div>
+            <div>
+                <h2 class="text-3xl font-bold text-brand-navy tracking-tight">Featured Properties</h2>
+                <p class="text-slate-500 mt-2 font-light">Curated selection of our finest homes.</p>
+            </div>
+            <a href="/listings" class="hidden md:block text-sm font-bold text-brand-navy hover:text-brand-sky transition-colors tracking-wide uppercase border-b border-slate-300 pb-1">
+                View All
+            </a>
+        </div>
 
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-			{#each data.properties as property}
-				<PropertyCard {property} />
-			{:else}
-				<p class="text-slate-500 col-span-full text-center py-20 font-light">
-					No featured properties found.
-				</p>
-			{/each}
-		</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {#each data.properties as property}
+                <PropertyCard {property} />
+            {:else}
+                <p class="text-slate-500 col-span-full text-center py-20 font-light">
+                    No featured properties found.
+                </p>
+            {/each}
+        </div>
         
         <div class="mt-12 text-center md:hidden">
             <a href="/listings" class="inline-block px-6 py-3 bg-white border border-slate-300 rounded text-brand-navy font-bold shadow-sm">
                 View All Listings
             </a>
         </div>
-	</div>
+    </div>
 </div>
-
