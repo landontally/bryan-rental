@@ -55,7 +55,7 @@
 						<a href="tel:812-345-1005" class="text-xl font-bold text-brand-navy hover:text-brand-sky transition-colors block">
 							(812) 345-1005
 						</a>
-						<p class="text-sm text-slate-500 mt-1 font-light">Mon-Fri, 9am - 5pm</p>
+						<p class="text-sm text-slate-500 mt-1 font-light">Mon-Fri, 8am - 5pm</p>
 					</div>
 				</div>
 
@@ -65,10 +65,9 @@
 					</div>
 					<div>
 						<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Email Us</p>
-						<a href="mailto:ljkamen@gmail.com" class="text-lg font-bold text-brand-navy hover:text-brand-sky transition-colors block break-all">
-							ljkamen@gmail.com
+						<a href="mailto:maintenance@bryanrental.com" class="text-lg font-bold text-brand-navy hover:text-brand-sky transition-colors block break-all">
+							maintenance@bryanrental.com
 						</a>
-						<p class="text-sm text-slate-500 mt-1 font-light">We reply within 24 hours</p>
 					</div>
 				</div>
 

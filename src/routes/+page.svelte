@@ -10,6 +10,9 @@
             default: return 'bg-brand-sky text-brand-navy';
         }
     };
+
+    // State variable to track if the modal is open or closed
+    let showPaymentModal = $state(false);
 </script>
 
 {#if data.notice}
@@ -35,7 +38,7 @@
     
     <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 drop-shadow-2xl">
-            Find Your Place.
+            Find Your Home.
         </h1>
         
         <p class="text-lg md:text-xl text-slate-100 max-w-2xl font-light mb-10 tracking-wide drop-shadow-md">
@@ -62,15 +65,31 @@
                     </div>
             </a>
 
-            <a href="https://example.com/portal" target="_blank" class="group flex items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
+            <!-- Updated Button: Replaced <a> with <button> and added on:click -->
+            <button type="button" on:click={() => showPaymentModal = true} class="group flex w-full text-left items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
                 <div class="w-12 h-12 bg-brand-sky rounded-full flex items-center justify-center text-brand-navy shrink-0 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
                 </div>
                 <div>
-                    <h3 class="text-white font-bold text-lg">Pay Rent Online</h3>
-                    <p class="text-slate-400 text-sm">Secure tenant portal</p>
+                    <h3 class="text-white font-bold text-lg">Pay Rent</h3>
+                    <p class="text-slate-400 text-sm">Direct tenant payments</p>
                 </div>
-            </a>
+            </button>
+
+            <!-- Modal Overlay -->
+            {#if showPaymentModal}
+                <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+                    <div class="bg-slate-900 border border-slate-700 p-8 rounded-xl max-w-md w-full mx-4 shadow-2xl text-center">
+                        <h3 class="text-white text-2xl font-bold mb-3">Online Payments</h3>
+                        <p class="text-slate-300 mb-8 text-lg">
+                            Please contact Lisa for more information regarding direct rent payments.
+                        </p>
+                        <button type="button" on:click={() => showPaymentModal = false} class="bg-brand-sky text-brand-navy font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-all w-full">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            {/if}
 
             <a href="/tenants" class="group flex items-center gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
                 <div class="w-12 h-12 bg-brand-sky rounded-full flex items-center justify-center text-brand-navy shrink-0 group-hover:scale-110 transition-transform">
