@@ -128,8 +128,8 @@
 			</div>
 			
 			<button 
-				onclick={() => uiState.isContactOpen = true}
-				class="bg-brand-sky text-brand-navy hover:bg-white transition-colors font-bold px-6 py-2 rounded text-sm uppercase tracking-wide shadow-lg"
+				onclick={() => window.location.href = `mailto:ljkamen@gmail.com?subject=Property Inquiry - ${property.title}`}
+				class="bg-brand-sky text-brand-navy hover:bg-white transition-colors font-bold px-6 py-2 rounded text-sm uppercase tracking-wide shadow-lg flex items-center justify-center"
 			>
 				Email Lisa
 			</button>

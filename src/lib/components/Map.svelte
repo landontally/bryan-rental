@@ -1,47 +1,49 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { browser } from '$app/environment';
+    import { onMount, onDestroy } from 'svelte';
+    import { browser } from '$app/environment';
 
-	export let lat: number;
-	export let lng: number;
-	export let zoom: number = 15;
+    export let lat: number;
+    export let lng: number;
+    export let zoom: number = 15;
 
-	let mapElement: HTMLElement;
-	let map: any;
+    let mapElement: HTMLElement;
+    let map: any;
 
-	onMount(async () => {
-		if (browser) {
-			// Dynamically import Leaflet only on the client side
-			const L = await import('leaflet');
+    onMount(async () => {
+        if (browser) {
+            const L = await import('leaflet');
+            
+            // @ts-ignore
+            delete L.Icon.Default.prototype._getIconUrl;
+            L.Icon.Default.mergeOptions({
+                iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+                iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+                shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+            });
 
-			// Fix for missing marker icons in Webpack/Vite environments
-			// This effectively "resets" the icon paths to default
-			// @ts-ignore
-			delete L.Icon.Default.prototype._getIconUrl;
-			L.Icon.Default.mergeOptions({
-				iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-				iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-				shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-			});
+            // Ensure coordinates are read as strict numbers
+            const numLat = Number(lat);
+            const numLng = Number(lng);
 
-			// Create Map
-			map = L.map(mapElement).setView([lat, lng], zoom);
+            map = L.map(mapElement).setView([numLat, numLng], zoom);
 
-			// Add Tile Layer (OpenStreetMap - Free)
-			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+				attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+				maxZoom: 20
 			}).addTo(map);
 
-			// Add Marker
-			L.marker([lat, lng]).addTo(map);
-		}
-	});
+            L.marker([numLat, numLng]).addTo(map);
 
-	onDestroy(() => {
-		if (map) {
-			map.remove();
-		}
-	});
+            // Force Leaflet to recalculate the canvas size
+            setTimeout(() => {
+                if (map) map.invalidateSize();
+            }, 250);
+        }
+    });
+
+    onDestroy(() => {
+        if (map) map.remove();
+    });
 </script>
 
 <svelte:head>
