@@ -5,19 +5,15 @@
     let iframeElement: HTMLIFrameElement;
 
     onMount(() => {
-        // This function listens for messages sent by JotForm to resize the iframe
         const handleIFrameMessage = (e: MessageEvent) => {
             if (typeof e.data === 'string') {
                 const args = e.data.split(':');
                 if (iframeElement && args[0] === 'JotFormIFrame-' + '260015376420043') {
-                    // Check if the message is about height
+                    // Only handle the height resize
                     if (args[1] === 'setHeight') {
                         iframeElement.style.height = args[2] + 'px';
                     }
-                    // Automatically scroll to top when form pages change
-                    if (args[1] === 'scrollIntoView') {
-                        iframeElement.scrollIntoView({ behavior: 'smooth' });
-                    }
+                    // REMOVED the scrollIntoView block here
                 }
             }
         };
@@ -42,23 +38,24 @@
             </p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 relative">
+        <!-- REMOVED overflow-hidden from this container -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 relative">
             
-            <div class="absolute inset-0 flex items-center justify-center bg-white z-0 h-40">
+            <div class="absolute inset-0 flex items-center justify-center bg-white z-0 h-40 rounded-2xl">
                 <p class="text-slate-400 text-sm animate-pulse">Loading Application...</p>
             </div>
 
-            <iframe
-                bind:this={iframeElement}
-                id="JotFormIFrame-260015376420043"
-                title="Rental Application"
-                src={formUrl}
-                class="w-full relative z-10 border-none"
-                style="min-height: 500px;" 
-                allow="geolocation; microphone; camera"
-                scrolling="no"
-            >
-            </iframe>
+        <iframe
+            bind:this={iframeElement}
+            id="JotFormIFrame-260015376420043"
+            title="Rental Application"
+            src={formUrl}
+            class="w-full relative z-10 border-none rounded-2xl"
+            style="min-height: 800px;" 
+            allow="geolocation; microphone; camera"
+            scrolling="auto"
+        >
+        </iframe>
         </div>
         
         <div class="mt-8 text-center">
