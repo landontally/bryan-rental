@@ -289,12 +289,12 @@
 					<p class="text-slate-500 text-sm font-medium mb-1">Monthly Rent</p>
 					<p class="text-4xl font-bold text-brand-navy">{formatMoney(property.price)}</p>
 				</div>
-				<button 
-					onclick={() => uiState.isContactOpen = true}
-					class="w-full block bg-brand-navy text-white font-bold py-4 rounded-lg hover:bg-brand-black transition-colors mb-4 shadow-lg text-center"
+				<a 
+					href={`mailto:ljkamen@gmail.com?subject=Property Inquiry - ${property.title}`}
+					class="bg-brand-navy text-white font-bold px-6 py-2 rounded hover:bg-brand-black transition-colors flex items-center justify-center"
 				>
 					Email Lisa
-				</button>
+				</a>
 				<div class="mt-6 pt-6 border-t border-gray-100 text-center">
 					<p class="text-sm text-slate-500 mb-2">Have questions? Call us:</p>
 					<a href="tel:812-345-1005" class="text-xl font-bold text-brand-navy hover:text-brand-sky transition-colors">

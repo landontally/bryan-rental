@@ -32,6 +32,13 @@ export default defineType({
       },
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'isActive',
+      title: 'Show on Website',
+      type: 'boolean',
+      description: 'Turn this off to hide the property from the website without deleting the data.',
+      initialValue: true,
+    }),
     
     // --- AVAILABILITY SECTION ---
     defineField({
@@ -115,8 +122,11 @@ export default defineType({
           {title: 'Garbage Disposal', value: 'garbage_disposal'},
           {title: 'Washer/Dryer', value: 'washer_dryer'},
           {title: 'Pets Allowed', value: 'pets_allowed'},
+          {title: 'Gas Included', value: 'gas_included'},
           {title: 'Water Included', value: 'water_included'},
           {title: 'Trash Included', value: 'trash_included'},
+          {title: 'One Off-Street Parking Spot', value: 'one_off_street_parking_spot'},
+          {title: 'Two Off-Street Parking Spots', value: 'two_off_street_parking_spots'},
           {title: 'Parking', value: 'parking'},
           {title: 'Garage', value: 'garage'},
           {title: 'Balcony/Patio', value: 'balcony_patio'},
