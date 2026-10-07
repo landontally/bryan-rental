@@ -19,7 +19,7 @@
 		transition:fade={{ duration: 300 }}
 		onclick={onClose}
 	></div>
-
+ 
 	<div 
 		class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[101] overflow-y-auto"
 		transition:fly={{ x: 400, duration: 400, opacity: 1, easing: cubicOut }}
