@@ -3,7 +3,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
     // Fetch properties that are 'featured'
-    const query = `*[_type == "property" && featured == true] | order(_createdAt desc)[0...6] {
+    const query = `*[_type == "property" && featured == true && isActive != false] | order(_createdAt desc)[0...6] {
         _id,
         title,
         slug,

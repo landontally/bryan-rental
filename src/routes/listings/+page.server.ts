@@ -8,7 +8,7 @@ const client = createClient({
 });
 
 export const load = async () => {
-  const query = `*[_type == "property"] | order(orderRank asc) {
+  const query = `*[_type == "property" && isActive != false] {
     _id,
     title,
     "slug": slug.current,
@@ -17,17 +17,12 @@ export const load = async () => {
     price,
     sqft,
     availableYear,
-    
-    // --- ADD THIS LINE ---
     dateAvailable,
-    // ---------------------
-
+    _updatedAt, // Added to fetch the last modified time
     "imageUrl": mainImage.asset->url,
     "hoverImageUrl": hoverImage.asset->url
   }`;
-
   const listings = await client.fetch(query);
-
   return {
     listings
   };

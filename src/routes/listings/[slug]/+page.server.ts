@@ -26,7 +26,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	// 3. FETCH NEIGHBORS (Context Aware)
 	// We use `defined(availableYear)` to filter for Available properties
 	// We use `!defined(availableYear)` to filter for Leased properties
-	const condition = isAvailable ? 'defined(availableYear)' : '!defined(availableYear)';
+	const condition = isAvailable ? 'defined(availableYear) && isActive != false' : '!defined(availableYear) && isActive != false';
 
 	const neighborsQuery = `{
 		"directPrev": *[_type == "property" && ${condition} && _createdAt < $createdAt] | order(_createdAt desc)[0] { "slug": slug.current },

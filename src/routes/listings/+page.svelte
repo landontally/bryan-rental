@@ -15,6 +15,7 @@
 		dateAvailable?: string;
 		availableYear?: string;
 		imageUrl?: string;
+		_updatedAt?: string; // Add this
 	}
 
 	// 2. CONFIGURATION
@@ -26,17 +27,18 @@
 	];
 
 	const sortOptions = [
+		{ label: 'Recently Updated', value: 'updated-desc' }, // New default
 		{ label: 'Date: Earliest First', value: 'date-asc' },
 		{ label: 'Date: Furthest First', value: 'date-desc' },
 		{ label: 'Price: Low to High', value: 'price-asc' },
 		{ label: 'Price: High to Low', value: 'price-desc' },
 	];
 
-	// 3. STATE
+	// 3. STATE VARIABLES
 	let selectedYear = $state('Any');
 	let selectedBeds = $state('Any');
 	let selectedBaths = $state('Any');
-	let sortBy = $state('date-asc');
+	let sortBy = $state('updated-desc'); // Changed from 'date-asc'
 
 	// 4. HELPER: FORMAT DATE
 	function formatDate(dateString: string) {
@@ -68,15 +70,17 @@
 	// 6. HELPER: SORT FUNCTION
 	function sortProperties(list: Property[]) {
 		return [...list].sort((a, b) => {
+			if (sortBy === 'updated-desc') {
+				const timeA = a._updatedAt ? new Date(a._updatedAt).getTime() : 0;
+				const timeB = b._updatedAt ? new Date(b._updatedAt).getTime() : 0;
+				return timeB - timeA;
+			}
 			if (sortBy === 'price-asc') return a.price - b.price;
 			if (sortBy === 'price-desc') return b.price - a.price;
-			
 			const dateA = getSortableDate(a);
 			const dateB = getSortableDate(b);
-
 			if (sortBy === 'date-asc') return dateA - dateB;
 			if (sortBy === 'date-desc') return dateB - dateA;
-			
 			return 0;
 		});
 	}
@@ -127,7 +131,7 @@
 		selectedYear = 'Any';
 		selectedBeds = 'Any';
 		selectedBaths = 'Any';
-		sortBy = 'date-asc';
+		sortBy = 'updated-desc'; // Changed from 'date-asc'
 	};
 </script>
 

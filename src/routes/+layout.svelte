@@ -49,10 +49,10 @@
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between items-center">
 					
-					<a href="/" class="text-2xl tracking-tight hover:opacity-80 transition-opacity text-white flex items-center gap-1">
-						<span class="font-light tracking-widest uppercase text-sm">Bryan</span>
-						<span class="font-bold text-xl tracking-tighter">RENTAL</span>
-					</a>
+				<a href="/" class="hover:opacity-80 transition-opacity text-white flex items-center gap-1.5 font-jakarta">
+					<span class="font-light text-2xl tracking-wide uppercase">Bryan</span>
+					<span class="font-normal text-2xl tracking-wide">RENTAL</span>
+				</a>
 
 					<div class="hidden md:flex items-center space-x-10 text-xs font-bold tracking-[0.15em] text-white">
 						<a href="/" class="group relative py-2">HOME<span class="absolute bottom-0 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full"></span></a>

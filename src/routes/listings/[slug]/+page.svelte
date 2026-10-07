@@ -127,12 +127,15 @@
 				</button>
 			</div>
 			
-			<button 
-				onclick={() => window.location.href = `mailto:ljkamen@gmail.com?subject=Property Inquiry - ${property.title}`}
+			<!-- Top Header Email Button -->
+			<a 
+				href={`mailto:ljkamen@gmail.com?subject=Property Inquiry - ${property.title}`}
+				data-sveltekit-reload
+				target="_top"
 				class="bg-brand-sky text-brand-navy hover:bg-white transition-colors font-bold px-6 py-2 rounded text-sm uppercase tracking-wide shadow-lg flex items-center justify-center"
 			>
 				Email Lisa
-			</button>
+			</a>
 			
 			{#if next}
 				<a href={`/listings/${next.slug}`} class="hidden md:flex items-center gap-1 text-xs font-bold tracking-widest text-slate-400 hover:text-white transition-colors border-l border-white/10 pl-6 h-10 ml-2">
