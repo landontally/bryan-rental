@@ -259,7 +259,10 @@
 				
 				<div class="h-[400px] w-full rounded-xl overflow-hidden shadow-lg border border-slate-200 mb-8 relative z-0">
 					{#if property.location}
-						<Map lat={property.location.lat} lng={property.location.lng} />
+						<!-- Wrap the map in a key block tied to the property ID -->
+						{#key property._id}
+							<Map lat={property.location.lat} lng={property.location.lng} />
+						{/key}
 					{:else}
 						<div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">
 							No map location set for this property.
