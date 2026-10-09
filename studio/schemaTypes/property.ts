@@ -148,15 +148,63 @@ export default defineType({
       name: 'communityHighlights',
       title: 'Community Highlights',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {name: 'label', type: 'string', title: 'Label'},
-            {name: 'value', type: 'string', title: 'Value'},
-          ]
+      of: [{
+        type: 'object',
+        fields: [
+          {
+            name: 'label',
+            title: 'Category',
+            type: 'string',
+            options: {
+              list: [
+                { title: 'University / Campus', value: 'University' },
+                { title: 'Grocery / Supermarket', value: 'Grocery Store' },
+                { title: 'Coffee Shop', value: 'Coffee Shop' },
+                { title: 'Restaurant / Dining', value: 'Restaurant' },
+                { title: 'Bar / Nightlife', value: 'Nightlife' },
+                { title: 'Park / Trail', value: 'Park' },
+                { title: 'Bus Stop / Transit', value: 'Bus Stop' },
+                { title: 'Gym / Fitness', value: 'Gym' },
+                { title: 'Library', value: 'Library' },
+                { title: 'Entertainment / Theater', value: 'Entertainment' },
+                { title: 'Hardware / Home Store', value: 'Hardware Store' },
+                { title: 'Hospital / Medical', value: 'Medical' },
+                { title: 'Other', value: 'Other' }
+              ]
+            }
+          },
+          {
+            name: 'value',
+            title: 'Location Name',
+            type: 'string',
+            description: 'e.g., "Sample Gates", "Kroger", "IU Health"'
+          },
+          {
+            name: 'walkTime',
+            title: 'Walk Time',
+            type: 'string',
+            description: 'e.g., "5 min" (Leave blank if not applicable)'
+          },
+          {
+            name: 'bikeTime',
+            title: 'Bike Time',
+            type: 'string',
+            description: 'e.g., "2 min" (Leave blank if not applicable)'
+          },
+          {
+            name: 'driveTime',
+            title: 'Drive Time',
+            type: 'string',
+            description: 'e.g., "10 min" (Leave blank if not applicable)'
+          }
+        ],
+        preview: {
+          select: {
+            title: 'value',
+            subtitle: 'label'
+          }
         }
-      ]
+      }],
     }),
   ],
 })
