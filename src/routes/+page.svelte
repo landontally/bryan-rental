@@ -71,7 +71,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
                 </div>
                 <div>
-                    <h3 class="text-white font-bold text-lg">Pay Rent</h3>
+                    <h3 class="text-white font-bold text-lg">Pay Rent Online</h3>
                     <p class="text-slate-400 text-sm">Direct tenant payments</p>
                 </div>
             </button>
@@ -81,7 +81,7 @@
                 <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
                     <div class="bg-slate-900 border border-slate-700 p-8 rounded-xl max-w-md w-full mx-4 shadow-2xl text-center">
                         <h3 class="text-white text-2xl font-bold mb-3">Online Payments</h3>
-                        <p class="text-slate-300 mb-8 text-lg">
+                        <p class="text-slate-300 mb-2 text-lg">
                             Zelle: rick@bryanrental.com
                         </p>
                         <p class="text-slate-300 mb-8 text-lg">
