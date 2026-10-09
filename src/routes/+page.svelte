@@ -83,6 +83,8 @@
                         <h3 class="text-white text-2xl font-bold mb-3">Online Payments</h3>
                         <p class="text-slate-300 mb-8 text-lg">
                             Zelle: rick@bryanrental.com
+                        </p>
+                        <p class="text-slate-300 mb-8 text-lg">
                             Bryan Rental Inc, Bloomington, IN
                         </p>
                         <button type="button" on:click={() => showPaymentModal = false} class="bg-brand-sky text-brand-navy font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-all w-full">
