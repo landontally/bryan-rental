@@ -20,21 +20,47 @@
             day: 'numeric',
             year: 'numeric',
             timeZone: 'UTC' 
-        }).format(date);
+        }).format(date).toUpperCase();
     };
+
+    // Determine pill text and colors dynamically
+    $: pill = (() => {
+        if (property.availableYear === 'Leased') {
+            return { text: 'LEASED', colorClass: 'bg-sky-400 text-gray-900' };
+        }
+        if (property.availableYear === 'Available') {
+            return { text: 'AVAILABLE', colorClass: 'bg-sky-400 text-gray-900' };
+        }
+        if (property.dateAvailable) {
+            const isPast = new Date(property.dateAvailable) < new Date();
+            return {
+                text: formatDate(property.dateAvailable),
+                colorClass: isPast ? 'bg-sky-400 text-gray-900' : 'bg-slate-800 text-white'
+            };
+        }
+        
+        return null; // Fallback if no dates or statuses are provided
+    })();
 </script>
 
 <a
     href={`/listings/${property.slug.current}`} 
     class="group relative block h-96 w-full overflow-hidden shadow-lg bg-white transform-gpu"
 >
-{#if property.mainImage}
+    {#if property.mainImage}
         <img
             src={urlFor(property.mainImage).width(600).height(800).url()}
             alt={property.title}
             class="block h-[calc(100%+4rem)] w-[calc(100%+2px)] -ml-[1px] max-w-none object-cover transition-transform duration-500 ease-in-out group-hover:-translate-y-16"
         />
-        {/if}
+    {/if}
+
+    <!-- Top Left Availability Pill -->
+    {#if pill}
+        <div class={`absolute top-4 left-4 z-10 px-3 py-1 rounded-full text-xs font-bold tracking-wider shadow-sm ${pill.colorClass}`}>
+            {pill.text}
+        </div>
+    {/if}
 
     <div
         class="absolute bottom-0 w-full bg-white/95 backdrop-blur-sm pt-3 transition-transform duration-500 ease-in-out translate-y-16 group-hover:translate-y-0 will-change-transform"
@@ -66,7 +92,13 @@
             <div
                 class="flex-1 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             >
-                <span class="font-bold text-gray-900 text-lg">{formatDate(property.dateAvailable)}</span>
+                <span class="font-bold text-gray-900 text-lg">
+                    {#if property.availableYear === 'Available' || property.availableYear === 'Leased'}
+                        {property.availableYear}
+                    {:else}
+                        {formatDate(property.dateAvailable)}
+                    {/if}
+                </span>
                 <span class="text-[10px] uppercase tracking-wider font-semibold text-gray-500">Avail</span>
             </div>
         </div>

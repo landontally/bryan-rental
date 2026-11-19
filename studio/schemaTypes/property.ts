@@ -3,7 +3,8 @@ import {defineField, defineType} from 'sanity'
 const currentYear = new Date().getFullYear();
 
 const yearOptions = [
-  { title: 'Immediate / Now', value: 'Now' },
+  { title: 'AVAILABLE', value: 'Available' },
+  { title: 'LEASED', value: 'Leased' },
   { title: `${currentYear} - ${currentYear + 1}`, value: `${currentYear}-${currentYear + 1}` },
   { title: `${currentYear + 1} - ${currentYear + 2}`, value: `${currentYear + 1}-${currentYear + 2}` },
   { title: `${currentYear + 2} - ${currentYear + 3}`, value: `${currentYear + 2}-${currentYear + 3}` },
@@ -50,7 +51,6 @@ export default defineType({
       },
     }),
 
-    // RE-ADDED FIELD HERE:
     defineField({
       name: 'dateAvailable',
       title: 'Specific Date Available',

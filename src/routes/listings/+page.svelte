@@ -15,20 +15,19 @@
 		dateAvailable?: string;
 		availableYear?: string;
 		imageUrl?: string;
-		_updatedAt?: string; // Add this
+		_updatedAt?: string; 
 	}
 
 	// 2. CONFIGURATION
 	const yearOptions = [
-		// Removed 'Now' option as requested
 		{ label: `${currentYear} - ${currentYear + 1}`, value: `${currentYear}-${currentYear + 1}` },
 		{ label: `${currentYear + 1} - ${currentYear + 2}`, value: `${currentYear + 1}-${currentYear + 2}` },
 		{ label: `${currentYear + 2} - ${currentYear + 3}`, value: `${currentYear + 2}-${currentYear + 3}` },
 	];
 
 	const sortOptions = [
-		{ label: 'Recently Updated', value: 'updated-desc' }, // New default
-		{ label: 'Date: Earliest First', value: 'date-asc' },
+		{ label: 'Date: Earliest First', value: 'date-asc' }, // New default
+		{ label: 'Recently Updated', value: 'updated-desc' }, 
 		{ label: 'Date: Furthest First', value: 'date-desc' },
 		{ label: 'Price: Low to High', value: 'price-asc' },
 		{ label: 'Price: High to Low', value: 'price-desc' },
@@ -38,7 +37,7 @@
 	let selectedYear = $state('Any');
 	let selectedBeds = $state('Any');
 	let selectedBaths = $state('Any');
-	let sortBy = $state('updated-desc'); // Changed from 'date-asc'
+	let sortBy = $state('date-asc'); 
 
 	// 4. HELPER: FORMAT DATE
 	function formatDate(dateString: string) {
@@ -49,25 +48,49 @@
 			day: 'numeric',
 			year: 'numeric',
 			timeZone: 'UTC' 
-		}).format(date);
+		}).format(date).toUpperCase();
 	}
 
-	// 5. HELPER: SORTING VALUE
+	// 5. HELPER: PILL BOX DISPLAY LOGIC
+	function getPillData(property: Property) {
+		if (property.availableYear === 'Leased') {
+			return { text: 'LEASED', class: 'bg-brand-sky text-brand-navy' };
+		}
+		if (property.availableYear === 'Available') {
+			return { text: 'AVAILABLE', class: 'bg-brand-sky text-brand-navy' };
+		}
+		if (property.dateAvailable) {
+			const isPast = new Date(property.dateAvailable) < new Date();
+			return {
+				text: formatDate(property.dateAvailable),
+				class: isPast ? 'bg-brand-sky text-brand-navy' : 'bg-brand-navy text-white'
+			};
+		}
+		return {
+			text: property.availableYear || 'Unknown',
+			class: 'bg-brand-navy text-white'
+		};
+	}
+
+	// 6. HELPER: SORTING VALUE
 	function getSortableDate(property: Property): number {
+		if (property.availableYear === 'Leased') {
+			return new Date('3000-01-01').getTime(); // Pushes fully leased to the very bottom
+		}
+		if (property.availableYear === 'Available') {
+			return new Date().getTime(); // Treats available as now, rising to top
+		}
 		if (property.dateAvailable) {
 			return new Date(property.dateAvailable).getTime();
 		}
-		if (property.availableYear === 'Now') {
-			return new Date().getTime(); 
-		}
 		if (property.availableYear) {
 			const year = parseInt(property.availableYear.split('-')[0]);
-			return new Date(`${year}-08-01`).getTime();
+			if (!isNaN(year)) return new Date(`${year}-08-01`).getTime();
 		}
 		return new Date('3000-01-01').getTime();
 	}
 
-	// 6. HELPER: SORT FUNCTION
+	// 7. HELPER: SORT FUNCTION
 	function sortProperties(list: Property[]) {
 		return [...list].sort((a, b) => {
 			if (sortBy === 'updated-desc') {
@@ -85,43 +108,32 @@
 		});
 	}
 
-	// 7. MATCHING LOGIC
+	// 8. MATCHING LOGIC
 	function isMatch(item: Property) {
-		// 1. Bed Match
 		const bedsNum = selectedBeds === 'Any' ? 'Any' : parseInt(selectedBeds);
 		const isBedMatch = bedsNum === 'Any' || item.bedrooms === bedsNum;
 
-		// 2. Bath Match
 		const bathsNum = selectedBaths === 'Any' ? 'Any' : parseInt(selectedBaths);
 		const isBathMatch = bathsNum === 'Any' || item.bathrooms === bathsNum;
 
-		// 3. Year Match
 		const isYearMatch = selectedYear === 'Any' || item.availableYear === selectedYear;
 
 		return isBedMatch && isBathMatch && isYearMatch;
 	}
 
-	// 8. DERIVED LISTS
+	// 9. DERIVED LISTS
 	let allListings = $derived(data.listings as Property[]);
 
-	// Primary: Matches ALL filters
 	let primaryList = $derived.by(() => {
 		const filtered = allListings.filter(isMatch);
 		return sortProperties(filtered);
 	});
 
-	// Secondary: Everything NOT in Primary
-	// This ensures nothing ever "disappears". If it's not top, it's bottom.
 	let secondaryList = $derived.by(() => {
-		// If showing everything in primary (no filters), hide secondary to avoid duplication
 		if (selectedYear === 'Any' && selectedBeds === 'Any' && selectedBaths === 'Any') {
 			return [];
 		}
-
-		// Get IDs of primary items to exclude them
 		const primaryIds = new Set(primaryList.map((p) => p._id));
-		
-		// Filter out primary items
 		const others = allListings.filter((item) => !primaryIds.has(item._id));
 		
 		return sortProperties(others);
@@ -131,7 +143,7 @@
 		selectedYear = 'Any';
 		selectedBeds = 'Any';
 		selectedBaths = 'Any';
-		sortBy = 'updated-desc'; // Changed from 'date-asc'
+		sortBy = 'date-asc'; 
 	};
 </script>
 
@@ -227,13 +239,8 @@
 							{/if}
 							
 							<div class="absolute top-4 left-4">
-								<span class="
-									text-xs font-bold px-3 py-1.5 rounded-md uppercase tracking-wider shadow-sm
-									{property.availableYear === 'Now' || (property.dateAvailable && new Date(property.dateAvailable).getFullYear() <= currentYear) 
-										? 'bg-brand-sky text-brand-navy' 
-										: 'bg-brand-navy text-white'}
-								">
-									{property.dateAvailable ? formatDate(property.dateAvailable) : (property.availableYear || 'Leased')}
+								<span class="text-xs font-bold px-3 py-1.5 rounded-md uppercase tracking-wider shadow-sm {getPillData(property).class}">
+									{getPillData(property).text}
 								</span>
 							</div>
 
@@ -304,7 +311,7 @@
                             
                             <div class="absolute top-4 left-4">
                                 <span class="bg-slate-500 text-white text-xs font-bold px-3 py-1 rounded uppercase tracking-wider shadow-lg">
-                                    {property.availableYear || 'Leased'}
+                                    {getPillData(property).text}
                                 </span>
                             </div>
                         </div>
